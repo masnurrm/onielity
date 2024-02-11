@@ -1,0 +1,28 @@
+name: Rebase development into main
+
+on:
+  schedule: 
+    - cron: "* * * * *"
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        
+    - name: Rebase development into main
+      run: |
+        git checkout development
+        git pull origin development
+        git checkout main
+        git rebase development
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Push rebased main branch
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
