@@ -1,8 +1,8 @@
-name: Rebase development into main
+name: Frequent Rebase
 
 on:
-  schedule: 
-    - cron: "* * * * *"
+  schedule:
+    - cron: "*/1 * * * *"
 
 jobs:
   rebase:
